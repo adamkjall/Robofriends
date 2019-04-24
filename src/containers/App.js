@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setSearchField, requestRobots } from '../actions';
+
 import SearchBox from '../components/SearchBox';
 import CardList from '../components/CardList';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry'
+
 import './App.css';
 
-import { setSearchField, requestRobots } from '../actions';
 
+
+// parameter state comes from index.js provider store state(rootReducers)
 const mapStateToProps = (state) => {
   return {
     searchField: state.searchRobots.searchField,
@@ -17,6 +21,8 @@ const mapStateToProps = (state) => {
   }
 }
 
+// dispatch the DOM changes to call an action. note mapStateToProps returns object, mapDispatchToProps returns function
+// the function returns an object then uses connect to change the data from redecers.
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
@@ -49,5 +55,5 @@ class App extends Component {
       )
   }
 }
-
+// action done from mapDispatchToProps will channge state from mapStateToProps
 export default connect(mapStateToProps, mapDispatchToProps)(App);
